@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!--11. Write a JavaScript code snippet that updates the content of a <div> with id output to show the result of 15 * 3 using innerHTML. -->
+<body>
+    <!-- <div id="output" style="background-color: cadetblue;">123</div>
+
+    <script>
+      document.getElementById("output").innerHTML = 15 * 3;
+    </script> -->
+
+    <!-- //18.Write a code snippet that assigns a value to a variable marks, then checks if the marks are greater than or equal to 75. If true, assign "Passed" to another variable result, otherwise assign "Failed". Display result using innerHTML. -->
+
+    <div id="con" style="background-color: blue;"></div>
+<script>   
+
+let marks =  75;
+let result;
+
+if ( marks >= 75){
+  result="passed"
+}else{
+  result="failed"
+}
+
+document.getElementById("con").innerHTML = "result  " + result ;
+</script>
+    
+</body>
+</html>

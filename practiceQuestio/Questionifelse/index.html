@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="lowestTemp"></div>
+    <div id="highestTemp"></div>
+
+    <script>
+        let temperature1 = 32
+let lowestTemperature = Infinity
+let highestTemperature = -Infinity
+
+if(temperature1 < lowestTemperature){
+    lowestTemperature = temperature1
+}
+if(temperature1 > highestTemperature){
+    highestTemperature = temperature1
+}
+document.getElementById("lowestTemp").innerHTML = "Lowest temperature: " + lowestTemperature + "°C";
+document.getElementById("highestTemp").innerHTML = "Highest temperature: " + highestTemperature + "°C";
+
+    </script>
+    
+</body>
+</html>
