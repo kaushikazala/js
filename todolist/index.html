@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #1E1E2F;
+        line-height: 2;
+        font-family: Arial, Helvetica, sans-serif;
+        color: 	#F5F5F5  ;
+    }
+    button{
+        padding: 10px 20px;
+        border:	#A29BFE solid 2px;
+        background-color:	#6C5CE7 ;
+        color: white;
+        font-size: 16px;
+        border-radius: 5px;
+        font-weight: bold;
+
+    }
+   
+    button:hover{
+        background-color: #8F87F1;
+      border: #6C5CE7 solid 2px;
+    
+    }
+    input{
+        padding: 10px;
+        border: blue solid 2px;
+        border-radius: 5px;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+    #main{
+        height:auto;
+        width: 20vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: 	#2C2C3E;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    #container{
+        padding: 10px;
+        font-size: larger;
+        font-weight: bold;
+        /* border: 1px solid #ccc; */
+    }
+   
+   
+    
+</style>
+<body>
+    <div id="main">
+    <h1>Todo List</h1>
+    <input type="text" placeholder="Enter your task" id="task">
+    <button id="addbtn">ADD TASK</button>
+    <div id="container"></div>
+    </div>
+
+    <script>
+
+let task = document.getElementById("task");
+let addbtn = document.getElementById("addbtn");
+let container = document.getElementById("container"); 
+let todolist = JSON.parse(localStorage.getItem("taskdata")) || [];  
+
+addbtn.addEventListener("click",()=>{
+    if (!task.value.trim()) {
+        alert("Please enter a task.");
+        return;
+    }else{
+    todolist.push(task.value)
+    localStorage.setItem("taskdata", JSON.stringify(todolist))
+    console.log(localStorage.getItem("taskdata"))   
+    displayTasks()
+    task.value = "";
+    }
+})
+
+function displayTasks() {
+    if (todolist.length == 0){
+        container.innerHTML = "<h2>Nothing to do!</h2>";
+    }else{
+    container.innerHTML = "";
+    todolist.forEach((todo,index) => {
+        let div = document.createElement("div");
+        let paragraph = document.createElement("p");
+
+        let deletebtn = document.createElement("button")
+        let editbtn = document.createElement("button")
+        editbtn.style.marginRight = "10px"
+        editbtn.innerText = "Edit"
+        deletebtn.innerText = "Delete"
+
+        editbtn.addEventListener("click",()=>{
+        let newTask = prompt("Edit your task", todo)
+        todolist[index] = newTask
+       
+        localStorage.setItem("taskdata",JSON.stringify(todolist))
+        displayTasks();
+         })
+          
+            deletebtn.addEventListener("click",()=> {
+            todolist = todolist.filter((todo,i) => i != index)
+            localStorage.setItem("taskdata", JSON.stringify(todolist))
+                // if(todolist.length == 0){
+                //     container.innerHTML = "<h2>No tasks available</h2>";
+                // }
+            displayTasks()
+         })
+ 
+         paragraph.innerText = todo
+         div.append(paragraph, editbtn, deletebtn)
+         container.append(div)
+        })
+        }
+    }
+        window.addEventListener("load",displayTasks())
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color:lightblue;
+        }
+        #quotes{
+            /* text-align: center; */
+            background-color: lightblue;
+            color: blue;
+            border-radius: 15px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        #btn{
+            background-color: lightblue;
+            color: blue;
+            border: 2px solid blue;
+            border-radius: 15px;
+            padding: 20px;
+            font-size: larger;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        #btn:hover{
+            background-color: blue;
+            color: lightblue;
+            border: 3px solid rgb(13, 95, 122);
+        }
+        #container{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+    <h1 id="quotes">Quote of the day</h1>
+    <button id="btn">Generate</button>
+    </div>
+    <script>
+    let arr =["The best way to predict the future is to invent it. - Alan Kay",
+            "In programming, simplicity and clarity are not optional. They are essential. - Robert C. Martin",
+            "If you think your code is perfect, you’ve just stopped learning. - Unknown",
+            "Programs must be written for people to read, and only incidentally for machines to execute. - Harold Abelson",
+            "Array indexes are like shoes: you can't have a negative size. - Unknown",
+            "Any fool can write code that a computer can understand. Good programmers write code that humans can understand. - Martin Fowler",
+            "Code never lies, comments sometimes do. - Ron Jeffries",
+            "There are only two hard things in computer science: cache invalidation and naming things. - Phil Karlton",
+            "An array is just a collection of things, and coding is about knowing how to handle them efficiently. - Unknown",
+            "Programs are meant to be executed by computers, but understood by humans. - Unknown"]
+            let quotes = document.getElementById('quotes');
+            let button = document.getElementById('btn');
+
+            function random(){
+                let randomquote = arr[Math.floor(Math.random()*arr.length)];
+                quotes.innerHTML = randomquote;
+            }
+            button.addEventListener('click',random);
+    </script>
+</body>
+</html>

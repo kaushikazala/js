@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+    .container {
+    width: 30%; 
+    margin: 50px auto; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 40px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+label {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+}
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-color: #4a90e2;
+    outline: none;
+}
+p {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+button {
+    padding: 10px 20px;
+    background-color: #4a90e2;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button:hover {
+    background-color: #357ab7;
+}
+@media (max-width: 600px) {
+    .container {
+        width: 80%;
+        padding: 20px;
+    }
+}
+
+</style>
+<body>
+  
+    <form id="form">
+        <div class="container">
+        <h1>Form Validation</h1>
+        <div>   
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+            <p id="errorText1"></p>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <p id="errorText2"></p>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <p id="errorText3"></p>
+        </div>
+        <div>
+            <button id="btn" type="submit">submit</button>
+        </div>
+        </div>
+    </form>
+    <script>
+        let name = document.getElementById("name");
+        let email = document.getElementById("email");
+        let password = document.getElementById("password");
+        let form = document.getElementById("form");
+        let btn = document.getElementById("btn");
+
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            let errorText1 = document.getElementById("errorText1");
+            let errorText2 = document.getElementById("errorText2");
+            let errorText3 = document.getElementById("errorText3");
+            let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            let regexOfPass =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            let isValid = true;
+
+
+            if (name.value === "") {
+                errorText1.innerText = "Name is required";
+                name.style.borderColor = "red";
+                isValid = false;
+            } else {
+                errorText1.innerText = "";
+                name.style.borderColor = "green";
+            }
+
+            if (!regex.test(email.value)) {
+                errorText2.innerText = "Email is not valid";
+                email.style.borderColor = "red";
+                isValid = false;
+            } else {
+                errorText2.innerText = "";
+                email.style.borderColor = "green";
+            }
+
+            if (!regexOfPass.test(password.value)) {
+                errorText3.innerText = "Min 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character.";
+                password.style.borderColor = "red";
+                isValid = false;
+            } else {
+                errorText3.innerText = "";
+                password.style.borderColor = "green";
+            }
+            if (isValid) {
+                name.value = "";
+                email.value = "";
+                password.value = "";
+                alert("Form submitted successfully!");
+            } else {
+                alert("Please fill in all fields correctly.");
+            }
+        });
+        
+
+        
+    </script>
+</body>
+</html>

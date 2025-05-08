@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="main-con">
+
+    </div>
+    <script>
+        let maincon = document.querySelector('.main-con');
+        async function showdata() {
+            const url = 'https://cricbuzz-cricket.p.rapidapi.com/mcenter/v1/41881/comm';
+const options = {
+	method: 'GET',
+	headers: {
+		'x-rapidapi-key': 'ac5c615be4msh7971c41e52072ddp1ed34fjsnde221f6a18db',
+		'x-rapidapi-host': 'cricbuzz-cricket.p.rapidapi.com'
+	}
+};
+
+try {
+	const response = await fetch(url, options);
+	const result = await response.json();
+    result.commentaryList.forEach((item)=> {
+        let paragraph = document.createElement('p');
+        paragraph.innerHTML = `commText = ${item.commText}
+         event = ${item.event}`;
+        maincon.append(paragraph);
+    });
+	console.log(result);
+} catch (error) {
+	console.error(error);
+}
+}
+        showdata();
+    </script>
+</body>
+</html>

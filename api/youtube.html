@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="main-con">
+
+    </div>
+    <script>
+        let maincon = document.querySelector('.main-con');
+        async function showdata() {
+            const url = 'https://youtube138.p.rapidapi.com/auto-complete/?q=desp&hl=en&gl=US';
+const options = {
+	method: 'GET',
+	headers: {
+		'x-rapidapi-key': 'ac5c615be4msh7971c41e52072ddp1ed34fjsnde221f6a18db',
+		'x-rapidapi-host': 'youtube138.p.rapidapi.com'
+	}
+};
+
+try {
+	const response = await fetch(url, options);
+    const result = JSON.parse(await response.text());
+    console.log(result); 
+    
+    result.results.forEach((items,index)=> {
+        let paragraph = document.createElement('p');
+        paragraph.innerHTML = `videoId = ${index+1} <br> title = ${items} `;
+        maincon.append(paragraph);
+    });   
+	       
+} catch (error) {
+	console.error(error);
+}
+        }   
+        showdata();
+    </script>
+</body>
+</html>

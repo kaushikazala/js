@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <input type="text" name="" id="inputValue">
+        <ul id="suggestionName"></ul>
+        <button id="search">search</button>
+        <img src="" id="image" alt="">
+    </div>
+
+    <script>
+        let input = document.querySelector("#inputValue")
+        let button = document.querySelector("#search")
+        let image = document.querySelector("#image")
+        let name = document.querySelector("#suggestionName")
+        let dog = ["Boxer","Shiba","Pekinese"]
+
+
+        input.addEventListener("input",function(){
+            const query = input.value.toLowerCase();
+      displaySuggestions(query);
+
+        })
+
+        button.addEventListener("click", () => {
+            if (!input.value.trim()) {
+                alert("Enter dog name");
+                return
+            }
+
+
+            fetch(`https://dog.ceo/api/breed/${input.value}/images/random`)
+                .then((res) => res.json())
+                .then((res) => {
+                    console.log(res);
+                    image.src = res.message
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            input.value = ""
+        });
+    </script>
+</body>
+
+</html>

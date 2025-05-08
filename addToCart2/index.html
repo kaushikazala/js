@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <h1>Product Items</h1>
+            <div class="rightside">
+                <div class="cartbox">
+                    <i class="uil uil-shopping-cart"></i>
+                    <span class="quantity">0</span>
+                </div>
+            </div>
+        </nav>
+        <div class="productbox">
+      
+        </div>
+        <div class="cartcontainer">
+            <h2>Cart items</h2>
+            <ul>
+              
+            </ul>
+            <div class="bottomside">
+                <div class="total">Total <small>$</small><span>0</span></div>
+                <div class="closebtn">Close </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    </div>
+
+    <script>
+        let items = [
+            {
+                id:1,
+                name:"item 1",
+                image:"pexels-atomlaborblog-844923.jpg",
+                star:4,
+                price:500
+            },
+            {
+                id:2,
+                name:"item 2",
+                image: "pexels-kinkate-205926.jpg",
+                star:3,
+                price:300
+            },
+            {
+                id:3,
+                name:"item 3",
+                image: "pexels-sound-on-3394650.jpg",
+                star:4,
+                price:600
+            },
+            {
+                id:4,
+                name:"item 4",
+                image: "pexels-atomlaborblog-844923.jpg",
+                star:3,
+                price:900
+            },
+            {
+                id:5,
+                name:"item 5",
+                image: "pexels-kinkate-205926.jpg",
+                star:4,
+                price:300
+            },
+            {
+                id:6,
+                name:"item 6",
+                image: "pexels-sound-on-3394650.jpg",
+                star:5,
+                price:500
+            },
+            {
+                id:7,
+                name:"item 7",
+                image: "pexels-atomlaborblog-844923.jpg",
+                star:4,
+                price:300
+            },
+            {
+                id:8,
+                name:"item 8",
+                image: "pexels-kinkate-205926.jpg",
+                star:5,
+                price:500
+            }
+        ]
+
+        var productBox = document.querySelector('.productbox');
+        var cartbox = document.querySelector('.cartbox');
+        var closebtn = document.querySelector('.closebtn');
+        var quantity = document.querySelector('.quantity');
+        var cartcontainer = document.querySelector('.cartcontainer ul');
+        var total = document.querySelector('.total span')
+
+        let showItem = items.map((item,key)=>{
+            let stars = "";
+            for(i=1;i<=item.star;i++){
+                stars += `<i class="uil uil-star"></i>`
+            }
+            return ` <div class="product">
+        <div class="imgbox">
+             <img src=${item.image}>
+        </div>
+        <div class="textdata">
+            <div>
+                <div class="name">${item.name}</div>
+                <div class="price"> <small>$</small>${item.price}</div>
+            </div>
+            <div>
+                <div class="rating">${stars}</div>
+                <button onclick="addtocart(${key})">Add to cart</button>
+            </div>
+        </div>
+        </div>`;
+        }) .join("")
+
+        productBox.innerHTML = showItem;
+           
+        cartbox.addEventListener("click",()=>{
+            document.body.classList.toggle('active');
+        });
+        closebtn.addEventListener("click",()=>{
+            document.body.classList.remove('active')
+        })
+
+
+        let storeProduct = []
+        function addtocart(id){
+    if(!storeProduct[id]){
+        storeProduct[id] = {...items[id], quantity: 1};
+    } else {
+        storeProduct[id].quantity += 1;
+    }
+    reloadProduct();
+}
+
+
+        function reloadProduct(){
+            cartcontainer.innerHTML = '';
+            let count = 0;
+            let totalCount = 0;
+            storeProduct.forEach((item,key)=>{
+                if (item) {
+            count += item.quantity;
+            totalCount += item.price * item.quantity;
+                }
+
+                let productLi = document.createElement('li')
+                productLi.innerHTML = `<img src="${item.image}">
+                    <div class="name">${item.name}</div>
+                    <div class="price"><small>$</small>${item.price}</div>
+                    <div class="changequantity">
+                        <button onClick="changeCount(${key},${item.quantity - 1})">-</button>
+                        <span>${item.quantity}</span>
+                        <button onClick="changeCount(${key},${item.quantity + 1})">+</button>
+                    </div>`;
+                    cartcontainer.appendChild(productLi);
+            })
+            quantity.style.display = "block";
+            quantity.innerHTML = count;
+            total.innerHTML = +totalCount
+        }
+
+        function changeCount(key,quantity){
+            if(quantity == 0){
+                delete storeProduct[key]
+            }else{
+                storeProduct[key].quantity = quantity
+            }
+            reloadProduct();
+        }
+
+        //     window.addtocart = addtocart;
+        // window.changeCount = changeCount;
+
+      
+     </script>
+    
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+    
+        .main {
+            display: grid;
+            /* grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); */
+            /* grid-auto-columns: max-content; */
+            gap: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+    
+        .main div {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+    
+        .main div:hover {
+            transform: scale(1.02);
+        }
+    
+        .main img {
+            max-width: 100%;
+            height: 200px;
+            object-fit: contain;    
+            margin-top: 10px;
+            justify-content: center;
+        }
+    </style>
+    
+</head>
+
+<body>
+    
+
+    <div class="main">
+    </div>
+
+    <script>
+        let mainDiv = document.querySelector(".main")
+
+        async function show() {
+            const url = "https://fakestoreapi.com/products/";
+            try {
+                const res = await fetch(url);
+                const result = await res.json();
+
+                result.forEach(element => {
+                    let paragraph = document.createElement("div");
+                    let image = document.createElement("img");
+                    image.src = element.image
+                    image.height = 200;
+                    image.width = 200;
+                    paragraph.innerHTML = `Id: ${element.id} <br>   
+                     Title: ${element.title} <br>
+                     ${element.description.slice(0,50)} `;
+                     paragraph.style.border = "1px solid black"
+
+                    mainDiv.append(image,paragraph);
+                });
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        show()
+    </script>
+</body>
+
+</html>

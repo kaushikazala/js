@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Local Stroage</h1>
+    <p>Count : <span id="count"></span></p>
+    <button id="inc">increment</button>
+    <button id="dec">decrement</button>
+
+    <script>
+
+let count = document.querySelector("#count");
+let inc = document.querySelector("#inc");
+let dec = document.querySelector("#dec");
+let Value = localStorage.getItem("count") || 0;
+
+inc.addEventListener("click",()=>{
+  Value++;
+  localStorage.setItem("count",Value);
+  count.innerHTML = Value;
+})
+
+dec.addEventListener("click",()=>{
+    Value--;
+    localStorage.setItem("count",Value);
+    count.innerHTML = Value;
+})
+    </script>
+  
+</body>
+</html>

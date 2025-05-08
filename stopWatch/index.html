@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Stopwatch</h1>
+
+     <h1 id="currentTime"></h1>
+    <p><span id="hr">00</span>:<span id="min">00</span>:<span id="seconds">00</span></p>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+  
+    <script>
+const time = new Date();
+ document.getElementById("currentTime").innerHTML = time
+
+        let hours = 0
+        let min = 0
+        let seconds = 0
+    const hoursP = document.getElementById('hr');
+    const minP = document.getElementById('min');
+    const secondsP = document.getElementById('seconds');
+    const startButton = document.getElementById('start');
+    const stopButton = document.getElementById('stop');
+
+    
+ 
+
+        
+    </script>
+</body> 
+</html>

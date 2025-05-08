@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+   
+</head>
+<body>
+    <style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+      
+        body {
+          font-family: 'Helvetica Neue', sans-serif;
+          background: linear-gradient(135deg, #89f7fe, #66a6ff);
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 20px;
+          color: #333;
+        }
+      
+        .weather-container {
+          background: #fff;
+          padding: 30px 35px;
+          border-radius: 16px;
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+          text-align: center;
+          width: 100%;
+          max-width: 400px;
+        }
+      
+        .weather-container h2 {
+          margin-bottom: 10px;
+          font-size: 22px;
+          color: #222;
+        }
+      
+        #city {
+          width: 100%;
+          padding: 12px 15px;
+          border: 2px solid #e0e0e0;
+          border-radius: 10px;
+          margin-bottom: 15px;
+          font-size: 16px;
+          transition: border-color 0.3s ease;
+        }
+      
+        #city:focus {
+          border-color: #66a6ff;
+          outline: none;
+        }
+      
+        #search {
+          width: 100%;
+          padding: 12px;
+          background-color: #66a6ff;
+          color: white;
+          border: none;
+          border-radius: 10px;
+          font-size: 16px;
+          font-weight: bold;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+      
+        #search:hover {
+          background-color: #5591e6;
+        }
+      
+        #weather {
+          margin-top: 20px;
+          font-size: 18px;
+          line-height: 1.6;
+        }
+      
+        #weather p {
+          margin: 6px 0;
+        }
+      
+      </style>
+      
+      <div class="weather-container">
+        <input type="text" id="city" placeholder="Enter city name">
+        <button id="search">Search</button>
+        <div id="weather"></div>
+    </div>
+    
+
+    <script>
+        const apikey = "908532886a5dad402ba3e3fe1f4c5bd8";
+        const cityInput = document.getElementById("city");
+        const searchBtn = document.getElementById("search");
+        const weatherDiv = document.getElementById("weather");
+
+        searchBtn.addEventListener("click", function () {
+            const cityName = cityInput.value.trim();    
+            if (cityName === "") {
+                alert("Please enter a city name.");
+                return;
+            }
+
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${cityName}&appid=${apikey}`;
+
+            fetch(apiUrl)
+            .then(data =>
+               data.json())
+                .then(data => {
+                    console.log(data);
+                    const weatherHTML = `
+                        <h2>Weather in ${data.name}</h2>
+                        <p>Temperature: ${data.main.temp}°C</p>
+                        <p>Humidity: ${data.main.humidity}%</p>
+                        <p>Wind Speed: ${data.wind.speed} m/s</p>
+                    `;
+                    weatherDiv.innerHTML = weatherHTML;
+                    cityInput.value = ""
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    weatherDiv.innerHTML = "<p style='color:red;'>Could not fetch weather data. Please try again.</p>";
+                });
+        });
+
+       
+    </script>
+
+</body>
+</html>

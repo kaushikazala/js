@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div class="main-con">
+  </div>
+
+  <script>
+
+    let main = document.querySelector('.main-con');
+
+    const url = 'https://advanced-movie-search.p.rapidapi.com/genre/movie/list';
+    const options = {
+      method: 'GET',
+      headers: {
+        'x-rapidapi-key': 'ac5c615be4msh7971c41e52072ddp1ed34fjsnde221f6a18db',
+        'x-rapidapi-host': 'advanced-movie-search.p.rapidapi.com'
+      }
+    };
+
+    async function show() {
+
+      try {
+        const response = await fetch(url, options);
+        const result = await response.json()
+        console.log(result.genres);
+
+
+        result.genres.forEach((item) => {
+          console.log(item)
+          let div = document.createElement("div");
+          div.innerHTML = ` <p>id :${item.id}</p>
+           <p>name:${item.name}</p>
+           `
+
+          main.append(div)
+
+        }
+        );
+
+      } catch (error) {
+        console.error(error);
+
+      }
+    }
+
+
+
+    show()
+  </script>
+</body>
+
+</html>

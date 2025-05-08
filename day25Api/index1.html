@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <img id="image" height="500px" width="500px">
+    <br>
+    <button id="btn">click</button>
+
+    <script>
+let image =  document.querySelector("#image")
+let button = document.querySelector("#btn")
+    button.addEventListener("click", ()=>{
+        fetchData()
+    })
+    function fetchData(){
+        fetch("https://dog.ceo/api/breeds/image/random")
+        .then((response) => {
+            return response.json()
+        })
+        .then((data) => {
+            console.log(data)
+            image.src = data.message
+        })
+    }
+
+    </script>
+</body>
+</html>
