@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Product CRUD Page</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <h1>Product Management</h1>
+
+  <div class="inputs">
+    <input type="text" id="image" placeholder="Image URL">
+    <input type="text" id="title" placeholder="Product Title">
+    <input type="number" id="price" placeholder="Price">
+    <!-- <input type="text" id="category" placeholder="Category"> -->
+    <button id="addBtn">Add Product</button>
+    <button id="lowToHigh">Low-high</button>
+    <button id="highToLow">High-Low</button>
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </div>
+
+  <div id="product-list" style="width:100%; height: max-content;"></div>
+
+<script>
+  let Product = JSON.parse(localStorage.getItem("products")) || [] 
+  let image =  document.querySelector("#image")
+  let title =  document.querySelector("#title")
+  let price = document.querySelector("#price")
+  let addBtn = document.querySelector("#addBtn")
+  let productList = document.querySelector("#product-list")
+
+  addBtn.addEventListener("click",()=>{
+    if(image.value == "" || title.value =="" || price.value == ""){
+      alert("FILL INPUT")
+      return;
+    }
+     let newProduct = {
+    image: image.value,
+    title: title.value,
+    price: price.value
+  };
+
+  Product.push(newProduct);
+  displayProduct()
+  localStorage.setItem("products", JSON.stringify(Product));
+    image.value = ""
+    title.value = ""
+    price.value = ""
+  })
+
+   function displayProduct(){
+productList.innerHTML=""
+     Product.forEach((item,index) => {
+
+       let div =  document.createElement("div")
+      let img=document.createElement("img")
+      let p1=document.createElement("p")
+      let p2=document.createElement("p")  
+      let deteleBtn =  document.createElement("button")
+      let editBtn =  document.createElement("button")
+      editBtn.innerText = "EDIT"
+      deteleBtn.innerText = "DETELE"
+
+      editBtn.addEventListener("click", ()=>{
+       let newTitle = prompt("Edit product title:", Product[index].title);
+      let newPrice = prompt("Edit product price:", Product[index].price);
+      let newImage = prompt("Edit image URL:", Product[index].image);
+
+      if (newTitle && newPrice && newImage) {
+        Product[index].title = newTitle.trim();
+        Product[index].price = newPrice.trim();
+        Product[index].image = newImage.trim();
+
+      localStorage.setItem("products",JSON.stringify(Product))
+      displayProduct()
+      }
+      })
+       
+     deteleBtn.addEventListener("click",()=>{
+        Product = Product.filter((item,i) => i !== index)
+        localStorage.setItem("products",JSON.stringify(Product))
+        displayProduct()
+    
+     })
+      // div.style.height="300px";
+      // div.style.width="200px"
+      // img.style.width="100%"
+      // img.style.height="200px"
+
+      p2.innerText=`$${item.price}`;
+      p1.innerText= item.title;
+      img.src=item.image;
+
+
+      div.append(img,p1,p2,deteleBtn,editBtn);
+
+      productList.append(div)
+  });
+   }   
+ 
+        let lowToHigh = document.querySelector("#lowToHigh")
+  lowToHigh.addEventListener("click", ()=>{
+    Product.sort((a,b)=> a.price - b.price)
+    // console.log(Product);/
+    displayProduct()
+  })
+
+  let highToLow = document.querySelector("#highToLow")
+highToLow.addEventListener("click", ()=>{
+   Product.sort((a,b)=>  b.price-a.price)
+  // console.log(Product)
+  displayProduct()
+})
+
+   let search = document.querySelector(".fa-solid")
+search.addEventListener("click", ()=>{
+  // alert("ok")
+let searchText =  prompt("Search Product")
+if(searchText){
+  let filtered = Product.filter(item => item.title.toLowerCase().includes(searchText.toLowerCase()));
+  displayProduct(filtered)
+}
+})
+ 
+   displayProduct()
+      
+  
+</script>
+</body>
+
+</html>
