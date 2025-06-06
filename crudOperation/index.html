@@ -46,14 +46,14 @@
       };
 
       Product.push(newProduct);
-      displayProduct()
+      displayProduct(Product)
       localStorage.setItem("products", JSON.stringify(Product));
       image.value = ""
       title.value = ""
       price.value = ""
     })
 
-    function displayProduct() {
+    function displayProduct(Product) {
       productList.innerHTML = ""
       Product.forEach((item, index) => {
 
@@ -107,14 +107,14 @@
     lowToHigh.addEventListener("click", () => {
       Product.sort((a, b) => a.price - b.price)
       // console.log(Product);/
-      displayProduct()
+      displayProduct(Product)
     })
 
     let highToLow = document.querySelector("#highToLow")
     highToLow.addEventListener("click", () => {
       Product.sort((a, b) => b.price - a.price)
       // console.log(Product)
-      displayProduct()
+      displayProduct(Product)
     })
 
     //  let filterProduct = [...Product]
@@ -125,12 +125,12 @@
       console.log(searchText);
       if (searchText) {
         let filtered = Product.filter(item => item.title.toLowerCase().includes(searchText));
-        displayProduct()
+        displayProduct(filtered)
       }   
       ///......
     })
 
-    displayProduct()
+    displayProduct(Product)
 
 
   </script>
